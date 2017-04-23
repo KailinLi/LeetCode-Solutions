@@ -8,13 +8,18 @@
  * };
  */
 class Solution {
+private:
+    int tilt = 0;
 public:
     int sum (TreeNode* root) {
         if (!root) return 0;
-        return sum(root->left) + sum(root->right) + root->val;
+        int leftSum = sum(root->left);
+        int rightSum = sum(root->right);
+        tilt += abs(leftSum - rightSum);
+        return leftSum + rightSum + root->val;
     }
     int findTilt(TreeNode* root) {
-        if (!root) return 0;
-        return findTilt(root->left) + findTilt(root->right) + abs(sum(root->left) - sum(root->right));
+        sum(root);
+        return tilt;
     }
 };
